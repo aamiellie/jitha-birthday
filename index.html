@@ -14,18 +14,40 @@ button,a{font:inherit}button{cursor:pointer}.wrap{max-width:850px;margin:auto;pa
 .slideshow{max-width:620px;margin:0 auto;background:#fff;padding:12px 12px 18px;border-radius:10px;box-shadow:0 14px 35px #9d638326;transform:rotate(-.4deg)}.slide-media{width:100%;height:min(65vh,560px);min-height:250px;object-fit:contain;display:block;background:linear-gradient(135deg,#fde4ef,#f5eafa);border-radius:5px}.slide-caption{text-align:center;font-size:14px;margin:14px 8px 4px;color:#946c86}.slide-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:16px auto 0;max-width:620px}.slide-btn{border:1px solid #efcddd;background:#fff8fc;color:#a46587;border-radius:25px;padding:10px 15px;font:12px Arial,sans-serif}.slide-btn:disabled{opacity:.35;cursor:default}.slide-count{font:11px Arial,sans-serif;color:#aa8aa0;text-align:center;min-width:55px}.slide-dots{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin:16px auto 0;max-width:600px}.slide-dot{width:8px;height:8px;border:0;border-radius:50%;padding:0;background:#e8c6d8}.slide-dot.active{background:#c66e99;transform:scale(1.35)}.media-note{font:11px/1.7 Arial,sans-serif;color:#a98ba0;text-align:center;margin-top:14px}
 .gamebox{background:#ffffffb8;border:1px solid #f3d9e7;border-radius:24px;padding:24px;text-align:center;box-shadow:0 12px 30px #b77a9614}.hearts{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:18px}.heart{font-size:35px;border:0;background:transparent;filter:grayscale(1);opacity:.55;transition:.2s}.heart.got{filter:none;opacity:1;transform:scale(1.12)}.cake{font-size:76px;line-height:1.2;margin:12px}.cake-msg{font:13px/1.8 Arial,sans-serif;max-width:400px;margin:10px auto 18px}.quote{font-size:22px;font-style:italic;line-height:1.5;margin:20px auto;max-width:480px}.hidden{display:none!important}.secret{background:#fff8fc;border:1px dashed #e9b6cf;border-radius:16px;padding:18px;margin-top:18px;font:14px/1.8 Arial,sans-serif}.footer{text-align:center;padding:40px 0 60px;font:11px Arial,sans-serif;color:#b091a5}.sparkle{position:fixed;pointer-events:none;z-index:10;animation:rise 1.4s ease-out forwards;font-size:20px}@keyframes float{50%{transform:translateY(-8px) rotate(3deg)}}@keyframes rise{to{transform:translateY(-120px) rotate(25deg);opacity:0}}@media(min-width:700px){.hero{min-height:90vh}.section{padding:60px 0}}
 </style>
-</head>
-<body>
   
 <script>
   if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
   }
 
-  window.addEventListener('pageshow', function () {
+  // Remove any saved section link when the page first opens.
+  if (window.location.hash) {
+    history.replaceState(
+      null,
+      '',
+      window.location.pathname + window.location.search
+    );
+  }
+
+  function goToTop() {
     window.scrollTo(0, 0);
-  });
+
+    requestAnimationFrame(() => {
+      window.scrollTo(0, 0);
+    });
+
+    setTimeout(() => window.scrollTo(0, 0), 100);
+    setTimeout(() => window.scrollTo(0, 0), 500);
+  }
+
+  window.addEventListener('load', goToTop);
+  window.addEventListener('pageshow', goToTop);
 </script>
+
+</head>
+<body>
+  
+
 
 <header class="hero" id="home"><div class="hero-card">
 <div class="gift">🎀</div><div class="eyebrow">A little corner of the universe</div>
