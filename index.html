@@ -16,6 +16,17 @@ button,a{font:inherit}button{cursor:pointer}.wrap{max-width:850px;margin:auto;pa
 </style>
 </head>
 <body>
+  
+<script>
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+
+  window.addEventListener('pageshow', function () {
+    window.scrollTo(0, 0);
+  });
+</script>
+
 <header class="hero" id="home"><div class="hero-card">
 <div class="gift">🎀</div><div class="eyebrow">A little corner of the universe</div>
 <h1>Made just<br><em>for you, Jitha</em></h1>
