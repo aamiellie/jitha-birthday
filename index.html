@@ -47,7 +47,12 @@ button,a{font:inherit}button{cursor:pointer}.wrap{max-width:850px;margin:auto;pa
 <section class="section" id="quote"><div class="eyebrow" style="text-align:center">The last page, for now</div><h2>You're Someone's<br><em>Favourite Person.</em></h2><p class="intro">No matter how far life takes us, I hope we keep making memories, laughing at silly things, and being part of each other's stories.</p><div class="gamebox"><p class="quote">“Some people turn ordinary days into favourite memories.”</p><button class="btn" id="secretBtn">A secret message ♡</button><div class="secret hidden" id="secret">Can i borrow a bd kiss?I promise i'll give it back <br><br></div></div></section>
 </main>
 <footer class="footer">made for Jitha, with all the love in the world ♡<br><a href="#home" style="color:inherit">↑ back to the beginning</a></footer>
-<script>
+
+<audio id="secretSong" loop>
+  <source src="https://raw.githubusercontent.com/aamiellie/jitha-birthday/main/secret-song.mp3" type="audio/mpeg">
+</audio>
+ 
+ <script>
 
 const memories=[
 {file:'1bts.jpg',type:'image',caption:'Tell me what came after “U know BTS?” ♡'},
@@ -85,25 +90,28 @@ hearts.forEach((b)=>b.addEventListener('click',()=>{if(b.classList.contains('got
 function pop(symbol){for(let i=0;i<7;i++){let s=document.createElement('span');s.className='sparkle';s.textContent=symbol;s.style.left=(15+Math.random()*70)+'vw';s.style.top=(50+Math.random()*35)+'vh';document.body.appendChild(s);setTimeout(()=>s.remove(),1500)}}
 document.querySelector('#blow').addEventListener('click',()=>{document.querySelector('#cakeEmoji').textContent='🍰';document.querySelector('#cakeMsg').textContent='Whoooosh! The candles are out! Make your wish come true, birthday girl. ✨';document.querySelector('#cakeDone').classList.remove('hidden');document.querySelector('#blow').textContent='Wish made! 💗';pop('✨')});
 
+
 const secretSong = document.querySelector('#secretSong');
 const secretBtn = document.querySelector('#secretBtn');
 const secretMessage = document.querySelector('#secret');
 
 secretBtn.addEventListener('click', async () => {
-  secretMessage.classList.toggle('hidden');
+  const isOpening = secretMessage.classList.contains('hidden');
 
-  if (!secretMessage.classList.contains('hidden')) {
+  if (isOpening) {
+    secretMessage.classList.remove('hidden');
     secretBtn.textContent = 'Hide the secret ♡';
 
     try {
-      if (secretSong.paused) {
-        await secretSong.play();
-      }
+      await secretSong.play();
     } catch (error) {
-      secretBtn.textContent = 'Tap to play the secret ♡';
+      console.error('Song could not play:', error);
+      secretBtn.textContent = 'Music unavailable — check the song file ♡';
     }
   } else {
+    secretMessage.classList.add('hidden');
     secretBtn.textContent = 'A secret message ♡';
+
     secretSong.pause();
     secretSong.currentTime = 0;
   }
@@ -111,9 +119,8 @@ secretBtn.addEventListener('click', async () => {
   pop('🌷');
 });
 
+
 document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',()=>{}));
 </script>
- <audio id="secretSong" loop>
-  <source src="https://raw.githubusercontent.com/aamiellie/jitha-birthday/main/secret-song.mp3" type="audio/mpeg">
-</audio>
+
 </body></html>
