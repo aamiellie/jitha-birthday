@@ -84,7 +84,36 @@ const hearts=[...document.querySelectorAll('.heart')];let got=0;
 hearts.forEach((b)=>b.addEventListener('click',()=>{if(b.classList.contains('got'))return;b.classList.add('got');b.textContent='♥';got++;document.querySelector('#count').textContent=got+' / 5 little wishes collected';pop('💗');if(got===5)document.querySelector('#wish').classList.remove('hidden')}));
 function pop(symbol){for(let i=0;i<7;i++){let s=document.createElement('span');s.className='sparkle';s.textContent=symbol;s.style.left=(15+Math.random()*70)+'vw';s.style.top=(50+Math.random()*35)+'vh';document.body.appendChild(s);setTimeout(()=>s.remove(),1500)}}
 document.querySelector('#blow').addEventListener('click',()=>{document.querySelector('#cakeEmoji').textContent='🍰';document.querySelector('#cakeMsg').textContent='Whoooosh! The candles are out! Make your wish come true, birthday girl. ✨';document.querySelector('#cakeDone').classList.remove('hidden');document.querySelector('#blow').textContent='Wish made! 💗';pop('✨')});
-document.querySelector('#secretBtn').addEventListener('click',()=>{document.querySelector('#secret').classList.toggle('hidden');document.querySelector('#secretBtn').textContent=document.querySelector('#secret').classList.contains('hidden')?'A secret message ♡':'Hide the secret ♡';pop('🌷')});
+
+const secretSong = document.querySelector('#secretSong');
+const secretBtn = document.querySelector('#secretBtn');
+const secretMessage = document.querySelector('#secret');
+
+secretBtn.addEventListener('click', async () => {
+  secretMessage.classList.toggle('hidden');
+
+  if (!secretMessage.classList.contains('hidden')) {
+    secretBtn.textContent = 'Hide the secret ♡';
+
+    try {
+      if (secretSong.paused) {
+        await secretSong.play();
+      }
+    } catch (error) {
+      secretBtn.textContent = 'Tap to play the secret ♡';
+    }
+  } else {
+    secretBtn.textContent = 'A secret message ♡';
+    secretSong.pause();
+    secretSong.currentTime = 0;
+  }
+
+  pop('🌷');
+});
+
 document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',()=>{}));
 </script>
+ <audio id="secretSong" loop>
+  <source src="https://raw.githubusercontent.com/aamiellie/jitha-birthday/main/secret-song.mp3" type="audio/mpeg">
+</audio>
 </body></html>
